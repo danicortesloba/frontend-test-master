@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 
+let isLoading = true;
+
 const Main = () => {
   const [counters, updateCounters] = useState([]);
   
@@ -10,15 +12,21 @@ const Main = () => {
           updateCounters(result.data)
         }
         fetchData();
+        isLoading = false;
         
       }, []);
 
 const listCounters = counters.map((counter) =>
-<li>{counter.title}</li>
+<li key={counter.id}>{counter.title}</li>
 );
 
     return (
-    <ul>{listCounters}</ul>  
+       <div>
+       {isLoading
+      ? <p key="loading"> Loading </p>
+      : counters.length > 0 ? <ul key="listcounters">{listCounters}</ul> : <p key="nocounters">No counters yet!</p>
+      }
+      </div>
     );
   };
   

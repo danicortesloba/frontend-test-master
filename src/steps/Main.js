@@ -1,10 +1,12 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import Search from '../components/Search';
 
 let isLoading = true;
 
 const Main = () => {
   const [counters, updateCounters] = useState([]);
+ 
   
   useEffect(() => {
         const fetchData = async () => {
@@ -22,9 +24,10 @@ const listCounters = counters.map((counter) =>
 
     return (
        <div>
+        <Search />
        {isLoading
-      ? <p key="loading"> Loading </p>
-      : counters.length > 0 ? <ul key="listcounters">{listCounters}</ul> : <p key="nocounters">No counters yet!</p>
+      ? <p> Loading </p>
+      : counters.length > 0 ? <ul>{listCounters}</ul> : <p>No counters yet!</p>
       }
       </div>
     );
